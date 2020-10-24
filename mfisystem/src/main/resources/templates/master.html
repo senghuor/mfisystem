@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>Loan System</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" type="text/css" href="../css/myStyle.css">
+    <!-- Bootstrap 3.3.7 -->
+    <link rel="stylesheet" href="../style/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="../style/bower_components/font-awesome/css/font-awesome.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="../style/dist/css/AdminLTE.min.css">
+    <!-- Date Picker -->
+    <link rel="stylesheet" href="../style/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+    <!-- <link rel="stylesheet" href="../style/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css"> -->
+    <!-- DataTables -->
+    <link rel="stylesheet" href="../style/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="../style/bower_components/datatables.net-bs/css/buttons.dataTables.min.css"> -->
+    <link rel="stylesheet" href="../style/bower_components/datatable-responsive/css/responsive.dataTables.min.css">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="../style/bower_components/select2/dist/css/select2.min.css">
+    <style type="text/css">
+        .modalAjax {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background: rgba(255, 255, 255, .8) url('../css/gif/loading.gif') 50% 50% no-repeat;
+        }
+
+        /* When the body has the loading class, we turn
+    the scrollbar off with overflow:hidden */
+        body.loading .modalAjax {
+            overflow: hidden;
+        }
+
+        /* Anytime the body has the loading class, our
+    modal element will be visible */
+        body.loading .modalAjax {
+            display: block;
+        }
+    </style>
+</head>
+
+<body class="my-background-color">
+    <!-- @yield('content') -->
+
+    <div class="modalAjax">
+        <!-- Place at bottom of page -->
+    </div>
+
+    <!-- jQuery 3 -->
+    <script src="../style/bower_components/jquery/dist/jquery.min.js"></script>
+    <!-- jQuery UI 1.11.4 -->
+    <script src="../style/bower_components/jquery-ui/jquery-ui.min.js"></script>
+    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+
+    <!-- Bootstrap 3.3.7 -->
+    <script src="../style/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- daterangepicker -->
+    <!-- <script src="../style/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script> -->
+    <!-- datepicker -->
+    <script src="../style/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+    <!-- AdminLTE App -->
+    <!-- <script src="../style/dist/js/adminlte.min.js"></script> -->
+    <!-- Select2 -->
+    <script src="../style/bower_components/select2/dist/js/select2.full.min.js"></script>
+
+    <script src="../style/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+
+    <script src="../style/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script src="../style/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <!-- <script src="../style/bower_components/datatables.net-bs/js/buttons.html5.min.js"></script> -->
+    <script src="../style/bower_components/datatables.net-bs/js/buttons.print.min.js"></script>
+    <!-- <script src="../style/bower_components/datatables.net-bs/js/dataTables.buttons.min.js"></script> -->
+    <script src="../style/bower_components/datatables.net-bs/js/jszip.min.js"></script>
+    <script src="../style/bower_components/datatable-responsive/js/dataTables.responsive.min.js"></script>
+   
+    <script src="../style/bower_components/datatables.net-bs/js/buttons.html5-cus.min.js"></script>
+    <script src="../style/bower_components/datatables.net-bs/js/dataTables.buttons-cus.min.js"></script>
+    <script>
+        $body = $("body");
+
+        $(document).on({
+            ajaxStart: function() { $body.addClass("loading");  },
+            ajaxStop: function() { $body.removeClass("loading"); }    
+        });
+   
+
+        function linkToDef(title, url) {
+        $.ajax({
+            url: url,
+            success: function (result) {
+                window.location = url;
+            },
+            statusCode: {
+                404: function () {
+                    window.location = '/error';
+                }
+            }
+        });
+
+    }
+
+    function responseMessage(msg,error){
+        // $('#success_message').fadeIn().html(msg);  fa-check
+        if(error=='Y'){
+            $('#success_message').fadeIn().html("{{ config('app.succ') }}");
+            $("#success_message").removeClass("alert alert-danger customize-danger customize-fa fa-times customize-info customize-warning").addClass("alert alert-success customize-success customize-fa");
+        }else if(error=='N'){    
+            $('#success_message').fadeIn().html("{{ config('app.fail') }}");        
+            $("#success_message").removeClass("alert alert-success customize-success customize-fa fa-times customize-info customize-warning").addClass("alert alert-danger customize-danger customize-fa fa-times");
+        }else if(error=='I'){    
+            $('#success_message').fadeIn().html(msg);          
+            $("#success_message").removeClass("alert alert-success customize-success customize-fa fa-times customize-danger customize-warning").addClass("alert alert-info customize-info icon customize-fa fa-times");              
+        }else if(error=='W'){     
+            $('#success_message').fadeIn().html(msg);         
+            $("#success_message").removeClass("alert alert-success customize-success customize-fa fa-times customize-danger customize-info").addClass("alert alert-warning customize-warning icon customize-fa fa-check");              
+        }
+        setTimeout(function() {
+            $('#success_message').fadeOut("slow");
+        }, 3000 );       
+    }
+
+    $(".allownumericwithoutdecimal").on("keypress keyup blur",function (event) {    
+        $(this).val($(this).val().replace(/[^\d].+/, ""));
+        if ((event.which < 48 || event.which > 57)) {
+            event.preventDefault();
+        }
+    });
+
+    </script>
+
+</body>
+
+</html>

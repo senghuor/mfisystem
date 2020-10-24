@@ -1,0 +1,92 @@
+<html>
+<body>
+	<div id="footer" th:fragment="footer">
+		<!--======================= -->
+	<div class="modalAjax">
+	        <!-- Place at bottom of page -->
+	</div>
+
+    <!-- jQuery 3 -->
+    <script src="../style/bower_components/jquery/dist/jquery.min.js"></script>
+    <!-- jQuery UI 1.11.4 -->
+    <script src="../style/bower_components/jquery-ui/jquery-ui.min.js"></script>
+    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+
+    <!-- Bootstrap 3.3.7 -->
+    <script src="../style/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- daterangepicker -->
+    <!-- <script src="../style/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script> -->
+    <!-- datepicker -->
+    <script src="../style/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+    <!-- AdminLTE App -->
+    <!-- <script src="../style/dist/js/adminlte.min.js"></script> -->
+    <!-- Select2 -->
+    <script src="../style/bower_components/select2/dist/js/select2.full.min.js"></script>
+
+    <script src="../style/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+
+    <script src="../style/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script src="../style/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <!-- <script src="../style/bower_components/datatables.net-bs/js/buttons.html5.min.js"></script> -->
+    <script src="../style/bower_components/datatables.net-bs/js/buttons.print.min.js"></script>
+    <!-- <script src="../style/bower_components/datatables.net-bs/js/dataTables.buttons.min.js"></script> -->
+    <script src="../style/bower_components/datatables.net-bs/js/jszip.min.js"></script>
+    <script src="../style/bower_components/datatable-responsive/js/dataTables.responsive.min.js"></script>
+   
+    <script src="../style/bower_components/datatables.net-bs/js/buttons.html5-cus.min.js"></script>
+    <script src="../style/bower_components/datatables.net-bs/js/dataTables.buttons-cus.min.js"></script>
+    <script>
+        $body = $("body");
+
+        $(document).on({
+            ajaxStart: function() { $body.addClass("loading");  },
+            ajaxStop: function() { $body.removeClass("loading"); }    
+        });
+   
+
+        function linkToDef(title, url) {
+        $.ajax({
+            url: url,
+            success: function (result) {
+                window.location = url;
+            },
+            statusCode: {
+                404: function () {
+                    window.location = '/error';
+                }
+            }
+        });
+
+    }
+
+    function responseMessage(msg,error){
+        // $('#success_message').fadeIn().html(msg);  fa-check
+        if(error=='Y'){
+            $('#success_message').fadeIn().html("{{ config('app.succ') }}");
+            $("#success_message").removeClass("alert alert-danger customize-danger customize-fa fa-times customize-info customize-warning").addClass("alert alert-success customize-success customize-fa");
+        }else if(error=='N'){    
+            $('#success_message').fadeIn().html("{{ config('app.fail') }}");        
+            $("#success_message").removeClass("alert alert-success customize-success customize-fa fa-times customize-info customize-warning").addClass("alert alert-danger customize-danger customize-fa fa-times");
+        }else if(error=='I'){    
+            $('#success_message').fadeIn().html(msg);          
+            $("#success_message").removeClass("alert alert-success customize-success customize-fa fa-times customize-danger customize-warning").addClass("alert alert-info customize-info icon customize-fa fa-times");              
+        }else if(error=='W'){     
+            $('#success_message').fadeIn().html(msg);         
+            $("#success_message").removeClass("alert alert-success customize-success customize-fa fa-times customize-danger customize-info").addClass("alert alert-warning customize-warning icon customize-fa fa-check");              
+        }
+        setTimeout(function() {
+            $('#success_message').fadeOut("slow");
+        }, 3000 );       
+    }
+
+    $(".allownumericwithoutdecimal").on("keypress keyup blur",function (event) {    
+        $(this).val($(this).val().replace(/[^\d].+/, ""));
+        if ((event.which < 48 || event.which > 57)) {
+            event.preventDefault();
+        }
+    });
+
+    </script>
+	</div>
+</body>
+</html>

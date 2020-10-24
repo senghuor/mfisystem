@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Loan System</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="../css/myStyle.css">
+    <link rel="stylesheet" href="../style/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../style/bower_components/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../style/dist/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="../style/dist/css/skins/_all-skins.min.css">
+
+</head>
+
+<body class="hold-transition skin-purple sidebar-mini">
+    <div class="wrapper">
+        <header class="main-header navbar-fixed-top" style="z-index: 10!important;">
+            
+            <a href="/home" class="logo my-logo" style="z-index: 100!important;">
+                <span class="logo-mini">FTS</span>
+                <span class="logo-lg"><b>5-Tech</b> SYSTEM</span>
+            </a>
+           
+            <nav class="navbar navbar-static-top my-main-header">
+                <!-- Sidebar toggle button-->
+                <a href="#" class="sidebar-toggle my-text-color-bar" data-toggle="push-menu" role="button">
+                    <span class="sr-only">Toggle navigation</span>
+                </a>
+                <div class="navbar-custom-menu">
+                    <ul class="nav navbar-nav">
+                       
+                        <li><a href="{{ route('login') }}">Login</a></li>
+                        
+                        <!-- User Account: style can be found in dropdown.less -->
+                        <li class="dropdown user user-menu">
+                            <a href="#" class="dropdown-toggle my-text-color-bar" data-toggle="dropdown">
+                                <img src="../style/dist/img/av.png" class="user-image" alt="User Image">
+                                <b><span class="hidden-xs"><th:block th:text="${uname}">uname</th:block></span></b>
+                            </a>
+                            <ul class="dropdown-menu" style="width: 340px;">
+                                <!-- User image -->
+                                <li class="user-header" style="background-color: #213A7D!important">
+                                  <img src="../style/dist/img/av.png" class="img-circle" alt="User Image">
+                                    <p>
+                                       <th:block th:text="${uname}">uname</th:block>
+                                    </p>
+                                </li>
+                                <!-- Menu Body -->
+                                <!-- Menu Footer-->
+                                <li class="user-footer">
+                                    <div class="pull-left">
+                                        <a href="javascript:void(0);"
+                                            onClick="addTab('Profile','/change-pw/{{Auth::user()->id}}')"
+                                            class="btn btn-default btn-flat">Profile</a>
+                                    </div>
+                                    <div class="pull-right">
+                                        <a class="btn btn-default btn-flat" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                            Logout
+                                        </a>
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                            style="display: none;">
+                                           <!-- {{ csrf_field() }} -->
+                                        </form>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                      
+                        <!-- Control Sidebar Toggle Button -->
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <!-- Left side column. contains the logo and sidebar -->
+        <aside class="main-sidebar" style="z-index: 1!important;">
+            <!-- sidebar: style can be found in sidebar.less -->
+            <section class="sidebar">
+                <!-- Sidebar user panel -->
+                <div class="user-panel">
+                    <div class="pull-left image">
+                        <img src="../style/dist/img/av.png" class="img-circle" alt="User Image">
+                    </div>
+
+                    <div class="pull-left info">
+                        <p><th:block th:text="${uname}">uname</th:block></p>
+                      
+                        <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                    </div>
+                  
+                </div>
+                <div id="displayMenu">
+                    <ul class="sidebar-menu" data-widget="tree">
+				        <li class="header" style="text-align: center;">MAIN NAVIGATION</li>
+				        <li><a href="javascript:void(0);" onclick="addTab('Dashboard','/')" ><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
+			                <li class="treeview">
+			                    <a href="javascript:void(0);">
+			                        <i class="fa fa-circle"></i> <span>Item1</span>
+			                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+			                    </a>
+			                    <ul class="treeview-menu">
+                                    <li>
+                                        <a href="javascript:void(0);"onclick="addTab('test','test')">
+                                            <i class="fa fa-circle">
+                                            </i> Sub Item1
+                                        </a>
+                                    </li>
+			                    </ul>
+			                </li>
+				    </ul>
+                </div>
+            </section>
+            <!-- /.sidebar -->
+        </aside>
+        <!-- Content Wrapper. Contains page content -->
+
+        <div class="content-wrapper" style="background-color: #E0EBEA;">
+            <div style="margin-top: 0!important;">
+                <!--start-->
+                <ul class="nav nav-tabs my-nav-tabs" id="navtabs" >
+                   
+                </ul>                
+                
+                <section class="tab-content" id="tabcontent">
+                   
+                </section>
+            </div>            
+            
+        </div>
+
+        <!-- /.content-wrapper -->
+        
+        <div class="control-sidebar-bg"></div>
+    </div>
+
+
+    <!-- ./wrapper -->
+    <!-- jQuery 3 -->
+    <script src="../style/bower_components/jquery/dist/jquery.min.js"></script>
+
+    <script>
+        // $.widget.bridge('uibutton', $.ui.button);
+    </script>
+    <!-- Bootstrap 3.3.7 -->
+    <script src="../style/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- daterangepicker -->
+    <!-- AdminLTE App -->
+    <script src="../style/dist/js/adminlte.min.js"></script>
+    <!-- Select2 -->
+   
+    <script>
+   
+//    function linkToUnAuth(title, url) {
+//        $.ajax({
+//            url: url,
+//            success: function (result) {
+//                $("#unAuth").html(result);
+//                $(".permission").empty();
+//                $(".permission").removeClass("alert alert-danger alert-dismissible");
+//                $("#message").empty();
+//            },
+//            statusCode: {
+//                404: function () {
+//                    $("#unAuth").empty();
+//                    $(".permission").addClass("alert alert-danger alert-dismissible");
+//                    $("#message").text("Permission denied");
+//                }
+//            }
+//        });
+//    }
+
+    hidul();
+
+    function hidul() {
+        if ($('#navtabs li').length == 0) {
+            $('#navtabs').css('visibility', 'hidden')
+            $('.page-header').css('visibility', 'hidden')
+        } else {
+            $('#navtabs').css('visibility', '')
+            $('.page-header').css('visibility', '')
+        }
+    }
+
+    id = 1
+
+    function showtab() {
+        $(".nav-tabs").on("click", "a", function (e) {
+            //e.preventDefault();
+            $(this).tab('show');
+        })
+            .on("click", "span", function () {
+                var anchor = $(this).siblings('a');
+//                console.log("frame"+anchor.attr('href'))
+                closeWindow("frame" + anchor.attr('href'));
+                $(anchor.attr('href')).remove();
+                $(this).parent().remove();
+
+
+                // $(".nav-tabs li").children('a').first().click();
+                var index = $(".nav-tabs").children().length;
+                $('.nav-tabs li:nth-child(' + index + ') a').click();
+                hidul()
+            });
+        //hid ul when having no child
+        hidul()
+    }
+
+
+    function closeWindow(frameid) {
+//        var frame = frameid.replace("#", "");
+//        debugger
+//        $("#" + frame).contents().find("#ID").each(function () {
+////            debugger
+//            //console.log($(this).val())
+////            if ($(this).val() != null) {
+////                //alert($iBody.val())
+////                $.getJSON('/FTS/deleteLock', {
+////                    ID: $(this).val()
+////
+////                }, function (data) {
+////                    //console.log("null")
+////
+////                });
+////            }
+//
+//            return false
+//        });
+        return
+    }
+
+
+    function addTab(title, url) {
+        var sc = screen.height - 290 + 50+10;
+        //screen.height 600px
+//        $('#animated').fadeOut('fast'); //disable in fast mode
+//        $('#animated').fadeIn('slow');  //enable in slow mode
+        var checkExist = 0;
+        var findli = $(".nav-tabs li").each(function(){
+            var val = $(this).children("a").text();
+            if (title == val){
+                checkExist = 1;
+            }
+        });
+
+        if (checkExist == 0){
+            var index = $(".nav-tabs").children().length + 1; //think about it ;)
+            frame = "<iframe  src='" + url + "' width='100%' frameborder='0'  height='" + sc + "' id=frame" + id + "></iframe> ";
+            $(".nav-tabs").append("<li><a data-toggle='tab' href=#" + id + ">" + title + '</a> <p style="display: none;">' + id + '</p> &nbsp;<span class="rmTap">x</span></li>');
+            $('#tabcontent').append("<div class='tab-pane' id=" + id + ">" + frame + '</div>');
+            showtab();
+            $('.nav-tabs li:nth-child(' + index + ') a').click();
+            id = id + 1;
+            $("html, body").animate({scrollTop: 0}, 1);
+    //        $('#animated').fadeOut('slow');
+            //Close dropdown notification if open
+            $(window).on('blur', function () {
+                $('.dropdown-toggle').parent().removeClass('open');
+            });
+        }
+    }
+
+    // addTab("Dashboard", "/dashboard");
+
+    // focus ID to active shortcut
+//    $("#navtabs").on("click", function (e) {
+//        var id = $('.nav-tabs .active p').text();
+//        $("#frame" + id).contents().find("#ID").focus();
+//        // console.log("click tab"+id);
+//
+//    });
+
+    //
+    </script>
+    
+
+</body>
+
+</html>

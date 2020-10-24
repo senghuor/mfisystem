@@ -1,0 +1,84 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<!-- Call header -->
+	<div th:replace="header :: header"></div>
+</head>
+
+<body class="my-background-color">
+<div class="box-body my-form-background-color">
+    <form id="post">
+        <div class="navbar navbar-default noMarBot">
+            <div class="col-sm-12">
+                <div class="eventBar">
+                    <div class="col-sm-5 text-left" style="padding: 0;">
+                        <button type="submit" class="btn btn-flat btn-labeled btn-primary" id="save" value="save"
+                            onclick="f('save')">
+                            <span class="btn-label icon fa fa-save"></span>Save
+                        </button>
+                        <button type="submit" class="btn btn-flat btn-labeled btn-warning" id="update" value="update"
+                            onclick="f('update')" style="visibility: hidden;">
+                            <span class="btn-label icon fa fa-edit"></span>Update
+                        </button>
+                        <a class="btn btn-flat btn-labeled btn-info" id="cancel" style="visibility: hidden;">
+                            <span class="btn-label icon fa fa-times"></span>Cancel
+                        </a>
+                    </div>
+                    <div id="success_message" role="alert"></div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-sm-8">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <label>Test</label>
+                            <label id="idUpdate" hidden></label>
+                            <label id="events" hidden></label>
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="P_NAME" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <label>Test1</label>
+                        </div>
+                        <div class="col-sm-6">
+                            <select class="form-control select2" id="IsMain" style="cursor:pointer" required>                        
+                                <option value="Y">Yes</option>
+                                <option value="N">No</option>                  
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>            
+        </div>
+    </form>
+</div>
+
+<div class="box-body my-form-background-color">
+    <table id="listposts" class="table table-bordered table-striped table-hover display responsive nowrap"
+        style="width: 100%">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th name="action" id="action" class="action all">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+</div>
+
+<!-- Call footer -->
+<div th:insert="footer :: footer"></div>
+
+</body>
+
+</html>
